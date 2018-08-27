@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using SecureSocialMediaMVCClient.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AspNetCore.Firebase.Authentication.Extensions;
 
 namespace SecureSocialMediaMVCClient
 {
@@ -33,7 +34,7 @@ namespace SecureSocialMediaMVCClient
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddFirebaseAuthentication(Configuration["FirebaseAuthentication:Issuer"], Configuration["FirebaseAuthentication:Audience"]);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
